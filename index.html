@@ -56,20 +56,28 @@ h1{
 }
 
 /* YES / NO */
-#yesBtn{
+/* button container */
+#buttonBox{
     position:fixed;
-    left:45%;
     top:60%;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:20px;
+}
+
+/* YES */
+#yesBtn{
     background:#00c853;
     color:white;
 }
 
+/* NO */
 #noBtn{
-    position:fixed;
-    left:55%;
-    top:60%;
+    position:relative;
     background:#ff1744;
-    transition:0.4s ease; /* smooth movement */
+    color:white;
+    transition:0.3s ease;
 }
 
 /* form */
@@ -148,7 +156,7 @@ input[type="radio"]:checked + .radio-label{
 
 <div class="card" id="card">
 
-    <h1 id="title">Lagaw ta bai? 💖</h1>
+    <h1 id="title">Lagaw ta bai? </h1>
 
     <div id="formBox">
 
@@ -186,9 +194,10 @@ input[type="radio"]:checked + .radio-label{
         <div id="message">Lezgooo HAHAHAHAHA</div>
     </div>
 </div>
-
-<button id="yesBtn" class="btn">taaa</button>
-<button id="noBtn" class="btn">Hindi ko 😅</button>
+<div id="buttonBox">
+    <button id="yesBtn" class="btn">taaa</button>
+    <button id="noBtn" class="btn">Hindi ko 😅</button>
+</div>
 
 <script>
 const yesBtn = document.getElementById("yesBtn");
@@ -205,13 +214,18 @@ yesBtn.onclick = () => {
 };
 
 /* SMOOTH NO MOVE (only inside screen) */
-function moveNo(){
-    const btnW = noBtn.offsetWidth;
-    const btnH = noBtn.offsetHeight;
+/* SMOOTH NO MOVE (stay around the YES button area) */
+function moveNo() {
+    const buttonBox = document.getElementById("buttonBox");
 
-    const x = Math.random() * (window.innerWidth - btnW);
-    const y = Math.random() * (window.innerHeight - btnH);
+    // area around the center
+    const rangeX = 120;
+    const rangeY = 80;
 
+    const x = (Math.random() * rangeX * 2) - rangeX;
+    const y = (Math.random() * rangeY * 2) - rangeY;
+
+    noBtn.style.position = "relative";
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
 }
